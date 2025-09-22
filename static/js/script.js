@@ -1,5 +1,7 @@
 // Neelima Girls Hostel - Dynamic Website JavaScript
 
+const API_BASE_URL = (window && window.API_BASE_URL) ? window.API_BASE_URL : '';
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all functionality
     initNavigation();
@@ -161,7 +163,7 @@ function uploadFile(file, fileType) {
     const originalContent = uploadBox.innerHTML;
     uploadBox.innerHTML = '<div class="loading"></div><p>Uploading...</p>';
 
-    fetch('/upload', {
+    fetch(`${API_BASE_URL}/upload`, {
         method: 'POST',
         body: formData
     })
@@ -219,7 +221,7 @@ function filterGalleryItems(filter) {
 
 // Load media from server
 function loadMedia() {
-    fetch('/api/media')
+    fetch(`${API_BASE_URL}/api/media`)
     .then(response => response.json())
     .then(data => {
         displayMedia(data);
@@ -253,9 +255,10 @@ function createMediaItem(item) {
     mediaItem.setAttribute('data-type', item.file_type);
     
     const isVideo = item.file_type === 'videos';
+    const mediaSrc = `${API_BASE_URL}/uploads/${item.file_type}/${item.filename}`;
     const mediaElement = isVideo ? 
-        `<video controls><source src="/uploads/${item.file_type}/${item.filename}" type="video/${item.filename.split('.').pop()}"></video>` :
-        `<img src="/uploads/${item.file_type}/${item.filename}" alt="${item.original_name}">`;
+        `<video controls><source src="${mediaSrc}" type="video/${item.filename.split('.').pop()}"></video>` :
+        `<img src="${mediaSrc}" alt="${item.original_name}">`;
     
     mediaItem.innerHTML = `
         ${mediaElement}
@@ -288,7 +291,7 @@ function viewMedia(mediaId) {
 // Delete media
 function deleteMedia(mediaId) {
     if (confirm('Are you sure you want to delete this media?')) {
-        fetch(`/api/media/${mediaId}`, {
+        fetch(`${API_BASE_URL}/api/media/${mediaId}`, {
             method: 'DELETE'
         })
         .then(response => response.json())

@@ -1,0 +1,14 @@
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+[[headers]]
+  for = "/uploads/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+
+

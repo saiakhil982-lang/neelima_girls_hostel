@@ -10,11 +10,13 @@ Features:
 import os
 import uuid
 from flask import Flask, render_template, request, jsonify, send_from_directory, redirect, url_for
+from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from datetime import datetime
 import json
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['SECRET_KEY'] = 'your-secret-key-here'
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # 50MB max file size
