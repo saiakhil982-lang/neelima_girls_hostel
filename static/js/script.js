@@ -63,13 +63,19 @@ function initNavigation() {
 
 // Admin access functionality
 function showAdminSection() {
+    const section = document.getElementById('adminUploadSection');
+    const login = document.getElementById('adminLogin');
+    const area = document.getElementById('adminUploadArea');
+    if (!section || !login || !area) return;
+
+    section.style.display = 'block';
+    // Make it accessible without password for user-friendliness
+    login.style.display = 'none';
+    area.style.display = 'block';
+
     if (IS_PREVIEW) {
-        showMessage('Preview mode: uploads disabled (no backend configured).', 'error');
-        return;
+        showMessage('Preview mode: uploads are simulated (no backend configured).', 'error');
     }
-    document.getElementById('adminUploadSection').style.display = 'block';
-    document.getElementById('adminLogin').style.display = 'block';
-    document.getElementById('adminUploadArea').style.display = 'none';
 }
 
 function hideAdminSection() {
@@ -97,10 +103,14 @@ function initFileUpload() {
     const fileInput = document.getElementById('fileInput');
     const fileTypeRadios = document.querySelectorAll('input[name="fileType"]');
 
+    // In preview, keep UI visible but inform users
     if (IS_PREVIEW) {
-        const adminSection = document.getElementById('adminUploadSection');
-        if (adminSection) adminSection.style.display = 'none';
-        return;
+        const info = document.createElement('div');
+        info.style.color = '#666';
+        info.style.fontSize = '0.9rem';
+        info.textContent = 'Preview mode: uploads will not be saved (no backend).';
+        const controls = document.querySelector('.upload-controls');
+        if (controls) controls.appendChild(info);
     }
 
     // Click to upload
@@ -398,9 +408,9 @@ function initMap() {
     const mapContainer = document.getElementById('map');
     if (!mapContainer) return;
 
-    // Hostel coordinates (provided by user)
-    const hostelLat = 17.405168072322876;
-    const hostelLng = 78.45612569621241;
+    // Hostel coordinates (updated by user)
+    const hostelLat = 17.405239735497204;
+    const hostelLng = 78.45546050867378;
 
     // Initialize the map
     const map = L.map('map').setView([hostelLat, hostelLng], 15);
