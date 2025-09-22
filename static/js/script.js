@@ -340,19 +340,33 @@ function initContactForm() {
     
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        
+
         const formData = new FormData(contactForm);
         const data = Object.fromEntries(formData);
-        
-        // Basic validation
+
         if (!data.name || !data.email || !data.message) {
             showMessage('Please fill in all required fields.', 'error');
             return;
         }
-        
-        // Simulate form submission
-        showMessage('Thank you for your message! We will get back to you soon.', 'success');
-        contactForm.reset();
+
+        // Netlify Forms submission: POST to current path with URL-encoded data
+        const body = new URLSearchParams();
+        for (const [key, value] of formData.entries()) {
+            body.append(key, value as string);
+        }
+
+        fetch(window.location.pathname, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: body.toString()
+        })
+        .then(() => {
+            showMessage('Thank you for your message! We will get back to you soon.', 'success');
+            contactForm.reset();
+        })
+        .catch(() => {
+            showMessage('Submission failed. Please try again later.', 'error');
+        });
     });
 }
 
