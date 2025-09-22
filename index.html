@@ -18,11 +18,194 @@
     <style>body{visibility:hidden}</style>
 </head>
 <body onload="document.body.style.visibility='visible'">
-    <!-- The same content as templates/index.html but without Jinja url_for -->
-    <!-- For brevity, we load assets above and rely on script.js to populate content -->
-    <div id="app">
-        <!-- If you need the full markup moved here, we can copy it, but this keeps a single source of truth. -->
-    </div>
+    <!-- Static copy of templates/index.html (Jinja tags removed) -->
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="logo-icon"><i class="fas fa-building"></i></div>
+                <span>Neelima Girls Hostel</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#facilities" class="nav-link">Facilities</a></li>
+                <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li class="nav-phone"><i class="fas fa-phone"></i> +91 9866978943</li>
+            </ul>
+            <div class="hamburger"><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to Neelima Girls Hostel</h1>
+            <p class="hero-subtitle">A safe, comfortable, and nurturing environment for your academic journey</p>
+            <div class="hero-buttons">
+                <a href="#gallery" class="btn btn-primary">View Gallery</a>
+                <a href="#contact" class="btn btn-secondary">Contact Us</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="floating-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Safe & Secure</h3>
+                <p>24/7 security and CCTV surveillance</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Our Hostel</h2>
+                <p>Creating a home away from home for young women pursuing their dreams</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Our Mission</h3>
+                    <p>At Neelima Girls Hostel, we believe that every young woman deserves a safe, comfortable, and supportive environment to focus on her studies and personal growth. Our hostel provides more than just accommodation – it's a community where lifelong friendships are formed and dreams are nurtured.</p>
+                    <h3>Why Choose Us?</h3>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check"></i> Prime location near educational institutions</li>
+                        <li><i class="fas fa-check"></i> Modern amenities and facilities</li>
+                        <li><i class="fas fa-check"></i> 24/7 security and support staff</li>
+                        <li><i class="fas fa-check"></i> Nutritious meals and clean environment</li>
+                        <li><i class="fas fa-check"></i> Study rooms and recreational areas</li>
+                        <li><i class="fas fa-check"></i> Regular cultural and educational programs</li>
+                    </ul>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-users"></i>
+                        <h3>200+</h3>
+                        <p>Happy Residents</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-star"></i>
+                        <h3>4.8/5</h3>
+                        <p>Rating</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities Section -->
+    <section id="facilities" class="facilities">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Facilities</h2>
+                <p>Everything you need for a comfortable and productive stay</p>
+            </div>
+            <div class="facilities-grid">
+                <div class="facility-card"><i class="fas fa-bed"></i><h3>Comfortable Rooms</h3><p>Spacious, well-ventilated rooms with modern furniture and study desks</p></div>
+                <div class="facility-card"><i class="fas fa-utensils"></i><h3>Nutritious Meals</h3><p>Fresh, hygienic, and nutritious meals prepared by experienced chefs</p></div>
+                <div class="facility-card"><i class="fas fa-wifi"></i><h3>High-Speed Internet</h3><p>Uninterrupted WiFi connectivity for studies and entertainment</p></div>
+                <div class="facility-card"><i class="fas fa-book"></i><h3>Study Rooms</h3><p>Quiet study areas with proper lighting and comfortable seating</p></div>
+                <div class="facility-card"><i class="fas fa-cookie-bite"></i><h3>Snacks & Refreshments</h3><p>Fresh snacks, beverages, and refreshments available throughout the day</p></div>
+                <div class="facility-card"><i class="fas fa-shield-alt"></i><h3>Security</h3><p>24/7 security personnel and CCTV surveillance for your safety</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2>Photo & Video Gallery</h2>
+                <p>Take a virtual tour of our hostel and facilities</p>
+            </div>
+
+            <div class="admin-access">
+                <button class="btn btn-outline" onclick="showAdminSection()"><i class="fas fa-cog"></i> Admin Access</button>
+            </div>
+
+            <div class="upload-section admin-section" id="adminUploadSection" style="display: none;">
+                <h3>Admin Panel - Upload Media</h3>
+                <div class="admin-login" id="adminLogin">
+                    <div class="login-form">
+                        <h4>Admin Access Required</h4>
+                        <input type="password" id="adminPassword" placeholder="Enter admin password" class="form-control">
+                        <button class="btn btn-primary" onclick="checkAdminAccess()">Login</button>
+                    </div>
+                </div>
+                <div class="upload-area" id="adminUploadArea" style="display: none;">
+                    <div class="upload-box" id="uploadBox">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop photos or videos here</p>
+                        <p class="upload-hint">or click to browse</p>
+                        <input type="file" id="fileInput" multiple accept="image/*,video/*" style="display: none;">
+                    </div>
+                    <div class="upload-controls">
+                        <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()"><i class="fas fa-plus"></i> Add Media</button>
+                        <div class="file-type-selector"><label><input type="radio" name="fileType" value="photos" checked> Photos</label><label><input type="radio" name="fileType" value="videos"> Videos</label></div>
+                        <button class="btn btn-secondary" onclick="hideAdminSection()"><i class="fas fa-times"></i> Close Admin Panel</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="media-gallery" id="mediaGallery">
+                <div class="gallery-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="photos">Photos</button>
+                    <button class="filter-btn" data-filter="videos">Videos</button>
+                </div>
+                <div class="gallery-grid" id="galleryGrid"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contact Us</h2>
+                <p>Get in touch for admissions and inquiries</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item"><i class="fas fa-map-marker-alt"></i><div><h3>Address</h3><p>10-1-18/8, Shyam Nagar Colony<br>Masab Tank, Hyderabad 500004</p></div></div>
+                    <div class="contact-item"><i class="fas fa-phone"></i><div><h3>Phone</h3><p>+91 9866978943<br>+91 Landline (Optional)</p></div></div>
+                    <div class="contact-item"><i class="fas fa-envelope"></i><div><h3>Email</h3><p>Naidu7700@gmail.com<br>admissions@yourdomain.com</p></div></div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group"><input type="text" id="name" name="name" placeholder="Your Name" required></div>
+                        <div class="form-group"><input type="email" id="email" name="email" placeholder="Your Email" required></div>
+                        <div class="form-group"><input type="tel" id="phone" name="phone" placeholder="Your Phone"></div>
+                        <div class="form-group"><textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea></div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            <div class="map-section">
+                <h3>Find Us on Map</h3>
+                <div id="map" class="map-container"></div>
+                <div class="map-info">
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Neelima Girls Hostel</strong></p>
+                    <p>10-1-18/8, Shyam Nagar Colony, Masab Tank, Hyderabad 500004</p>
+                    <p><i class="fas fa-phone"></i> +91 9866978943</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section"><h3>Neelima Girls Hostel</h3><p>Providing a safe and comfortable home for young women pursuing their dreams.</p><div class="social-links"><a href="#"><i class="fab fa-facebook"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-linkedin"></i></a></div></div>
+                <div class="footer-section"><h3>Quick Links</h3><ul><li><a href="#about">About Us</a></li><li><a href="#facilities">Facilities</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#contact">Contact</a></li></ul></div>
+                <div class="footer-section"><h3>Contact Info</h3><p><i class="fas fa-map-marker-alt"></i> 10-1-18/8, Shyam Nagar Colony, Masab Tank, Hyderabad 500004</p><p><i class="fas fa-phone"></i> +91 9866978943</p><p><i class="fas fa-envelope"></i> Naidu7700@gmail.com</p></div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2024 Neelima Girls Hostel. All rights reserved.</p></div>
+        </div>
+    </footer>
+
     <noscript>Please enable JavaScript to view this site.</noscript>
 </body>
 </html>

@@ -1,6 +1,7 @@
 // Neelima Girls Hostel - Dynamic Website JavaScript
 
 const API_BASE_URL = (window && window.API_BASE_URL) ? window.API_BASE_URL : '';
+const IS_PREVIEW = !API_BASE_URL;
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all functionality
@@ -62,6 +63,10 @@ function initNavigation() {
 
 // Admin access functionality
 function showAdminSection() {
+    if (IS_PREVIEW) {
+        showMessage('Preview mode: uploads disabled (no backend configured).', 'error');
+        return;
+    }
     document.getElementById('adminUploadSection').style.display = 'block';
     document.getElementById('adminLogin').style.display = 'block';
     document.getElementById('adminUploadArea').style.display = 'none';
@@ -91,6 +96,12 @@ function initFileUpload() {
     const uploadBox = document.getElementById('uploadBox');
     const fileInput = document.getElementById('fileInput');
     const fileTypeRadios = document.querySelectorAll('input[name="fileType"]');
+
+    if (IS_PREVIEW) {
+        const adminSection = document.getElementById('adminUploadSection');
+        if (adminSection) adminSection.style.display = 'none';
+        return;
+    }
 
     // Click to upload
     uploadBox.addEventListener('click', function() {
@@ -154,6 +165,10 @@ function handleFileUpload(files) {
 
 // Upload file to server
 function uploadFile(file, fileType) {
+    if (IS_PREVIEW) {
+        showMessage('Preview mode: upload skipped (no backend).', 'error');
+        return;
+    }
     const formData = new FormData();
     formData.append('file', file);
     formData.append('type', fileType);
@@ -221,14 +236,19 @@ function filterGalleryItems(filter) {
 
 // Load media from server
 function loadMedia() {
+    if (IS_PREVIEW) {
+        // Show empty gallery in preview
+        displayMedia([]);
+        return;
+    }
     fetch(`${API_BASE_URL}/api/media`)
-    .then(response => response.json())
-    .then(data => {
-        displayMedia(data);
-    })
-    .catch(error => {
-        console.error('Error loading media:', error);
-    });
+        .then(response => response.json())
+        .then(data => {
+            displayMedia(data);
+        })
+        .catch(error => {
+            console.error('Error loading media:', error);
+        });
 }
 
 // Display media in gallery
@@ -290,6 +310,10 @@ function viewMedia(mediaId) {
 
 // Delete media
 function deleteMedia(mediaId) {
+    if (IS_PREVIEW) {
+        showMessage('Preview mode: delete disabled (no backend).', 'error');
+        return;
+    }
     if (confirm('Are you sure you want to delete this media?')) {
         fetch(`${API_BASE_URL}/api/media/${mediaId}`, {
             method: 'DELETE'
