@@ -405,6 +405,14 @@ function initMap() {
     // Initialize the map
     const map = L.map('map').setView([hostelLat, hostelLng], 15);
 
+    // Ensure proper rendering if container sizing changes
+    setTimeout(() => {
+        try { map.invalidateSize(); } catch (_) {}
+    }, 300);
+    window.addEventListener('resize', () => {
+        try { map.invalidateSize(); } catch (_) {}
+    });
+
     // Add OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
